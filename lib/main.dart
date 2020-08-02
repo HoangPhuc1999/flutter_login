@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutterlogin/route.dart';
-import 'file:///C:/Users/owner/Documents/PhucAssignment/flutter_practice/flutter_login/lib/second/secondscreen.dart';
+import 'package:flutterlogin/splashscreen.dart';
+import 'second/secondscreen.dart';
 import 'firstpage/firstscreen.dart';
+
 
   void main()  {
   WidgetsFlutterBinding.ensureInitialized();
 
   runApp(MaterialApp (
+  //  home: SplashScreen(),
     title: 'Named Routes Demo',
-    initialRoute: RoutesName.firstpage,
+    initialRoute: RoutesName.splashscreen,
     onGenerateRoute:(RouteSettings settings)=> routeSetting(settings),
   ));
 }
@@ -20,6 +23,11 @@ MaterialPageRoute<dynamic> routeSetting(RouteSettings settings) {
       return MaterialPageRoute<dynamic>(
         builder: (BuildContext buildercontext) => FirstScreen(),
         settings: const RouteSettings(name: RoutesName.firstpage),
+      );
+    case RoutesName.splashscreen:
+      return MaterialPageRoute<dynamic>(
+        builder: (BuildContext buildercontext) => SplashScreen(),
+        settings: const RouteSettings(name: RoutesName.splashscreen),
       );
     case RoutesName.secondpage:
       return MaterialPageRoute<dynamic>(

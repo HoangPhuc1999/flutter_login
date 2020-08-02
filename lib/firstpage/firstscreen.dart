@@ -4,11 +4,11 @@ import 'package:flutterlogin/firstpage/first_bloc.dart';
 import 'package:flutterlogin/route.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+
 class FirstScreen extends StatefulWidget {
   @override
   _FirstScreenState createState() => _FirstScreenState();
 }
-
 class _FirstScreenState extends State<FirstScreen> {
   final FirstBloc bloc = FirstBloc();
   final TextEditingController myController = TextEditingController();
@@ -19,6 +19,7 @@ class _FirstScreenState extends State<FirstScreen> {
   void dispose() {
     // Clean up the controller when the widget is disposed.
     myController.dispose();
+    myController1.dispose();
     bloc.close();
     super.dispose();
   }
@@ -31,7 +32,10 @@ class _FirstScreenState extends State<FirstScreen> {
         'text': myController.text,
         'text1': myController1.text,
       },
-    );
+    ).then((value) {
+      myController.clear();
+      myController1.clear();
+    });
   }
 
   Future<void> addStringToSF(String text, String key) async {
@@ -66,7 +70,7 @@ class _FirstScreenState extends State<FirstScreen> {
 
   Widget _buildBody(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.background,
+      backgroundColor: const Color(0xFF084388),
       // backgroundImage: AssetImage('images/angela.jpg'),
       body: SafeArea(
         child: Center(
@@ -140,7 +144,8 @@ class _FirstScreenState extends State<FirstScreen> {
                       width: 340.0,
                       child: const Center(
                           child: Text('Đăng Nhập',
-                              style: TextStyle(color: Colors.background)))),
+                              style:
+                                  TextStyle(color: const Color(0xFF084388))))),
                   onPressed: () async {
                     print(myController.text);
                     print(myController1.text);
@@ -169,4 +174,5 @@ class _FirstScreenState extends State<FirstScreen> {
       },
     );
   }
+
 }
