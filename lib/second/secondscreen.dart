@@ -37,6 +37,7 @@ class _SecondScreenState extends State<SecondScreen> {
         cubit: bloc,
         buildWhen: (SecondState prev, SecondState state) {
           if (state is MoveBackToFirstScreenSecondState) {
+            print('goodbye');
             Navigator.popUntil(
                 context, ModalRoute.withName(RoutesName.firstpage));
             return false;

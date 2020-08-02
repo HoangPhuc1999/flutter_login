@@ -9,10 +9,10 @@ import 'firstpage/firstscreen.dart';
   WidgetsFlutterBinding.ensureInitialized();
 
   runApp(MaterialApp (
-  //  home: SplashScreen(),
-    title: 'Named Routes Demo',
-    initialRoute: RoutesName.splashscreen,
-    onGenerateRoute:(RouteSettings settings)=> routeSetting(settings),
+     home: SplashScreen(),
+     title: 'Named Routes Demo',
+     initialRoute: RoutesName.splashscreen,
+     onGenerateRoute:(RouteSettings settings)=> routeSetting(settings),
   ));
 }
 

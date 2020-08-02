@@ -52,6 +52,7 @@ class _FirstScreenState extends State<FirstScreen> {
           if (state is MoveToNextScreenFirstState) {
             addStringToSF('1', myController.text);
             addStringToSF('2', myController1.text);
+            print('hello');
             openNextPage(context);
             return false;
           } else if (state is LoginFailFirstState) {
@@ -69,6 +70,7 @@ class _FirstScreenState extends State<FirstScreen> {
   }
 
   Widget _buildBody(BuildContext context) {
+
     return Scaffold(
       backgroundColor: const Color(0xFF084388),
       // backgroundImage: AssetImage('images/angela.jpg'),
