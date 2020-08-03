@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:flutterlogin/firstpage/firstscreen.dart';
 import 'package:meta/meta.dart';
 
 import '../api_handler.dart';

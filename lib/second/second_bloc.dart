@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 part 'second_event.dart';
 
@@ -18,8 +17,5 @@ class SecondBloc extends Bloc<SecondEvent, SecondState> {
     if (event is ClickLogOutEventSecondEvent) {
       yield MoveBackToFirstScreenSecondState();
     }
-    }
   }
-
-
-
+}

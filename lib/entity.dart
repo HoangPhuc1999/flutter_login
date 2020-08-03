@@ -1,5 +1,5 @@
-
-
+import 'package:flutterlogin/constant.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 
 String getString(String key, Map<String, dynamic> data) {
@@ -118,9 +118,93 @@ List<String> getListString(String key, Map<String, dynamic> data) {
   return result;
 }
 
-/// parse Point
+@JsonSerializable(nullable: false)
+class NotiObject {
+  NotiObject({
+    this.notificationId,
+    this.notificationContent,
+    this.userId,
+    this.notificationCode,
+    this.createdDate,
+    this.objectId,
+    this.isRead,
+   });
+
+  factory NotiObject.fromMap(final Map<String,dynamic> data){
+    if(data == null) {
+      return NotiObject();
+    }
+    return NotiObject(
+      notificationId: getString(Constant.notificationId, data),
+      notificationContent: getString(Constant.notificationContent, data),
+      userId: getString(Constant.userId, data),
+      notificationCode: getInt(Constant.notificationCode, data),
+      createdDate: getInt(Constant.createDate, data),
+      objectId: getString(Constant.objectId, data),
+      isRead: getBool(Constant.isRead, data),
+    );
+  }
+  final String notificationId;
+  final String notificationContent;
+  final String userId;
+  final int notificationCode;
+  final int createdDate;
+  final String objectId;
+  final bool isRead;
+
+  NotiObject copyWith({
+    String notificationId,
+    String notificationContent,
+    String userId,
+    int notificationCode,
+    int createdDate,
+    String objectId,
+    bool isRead,
+  }) {
+    if ((notificationId == null ||
+            identical(notificationId, this.notificationId)) &&
+        (notificationContent == null ||
+            identical(notificationContent, this.notificationContent)) &&
+        (userId == null || identical(userId, this.userId)) &&
+        (notificationCode == null ||
+            identical(notificationCode, this.notificationCode)) &&
+        (createdDate == null || identical(createdDate, this.createdDate)) &&
+        (objectId == null || identical(objectId, this.objectId)) &&
+        (isRead == null || identical(isRead, this.isRead))) {
+      return this;
+    }
+
+    return  NotiObject(
+      notificationId: notificationId ?? this.notificationId,
+      notificationContent: notificationContent ?? this.notificationContent,
+      userId: userId ?? this.userId,
+      notificationCode: notificationCode ?? this.notificationCode,
+      createdDate: createdDate ?? this.createdDate,
+      objectId: objectId ?? this.objectId,
+      isRead: isRead ?? this.isRead,
+    );
+  }
+
+  Map<String,dynamic> toJson (){
+    return<String,dynamic> {
+      Constant.notificationId : notificationId,
+      Constant.notificationContent : notificationContent,
+      Constant.userId : userId,
+      Constant.notificationCode: notificationCode,
+      Constant.createdDate : createdDate,
+      Constant.objectId : objectId,
+      Constant.isRead: isRead,
+    };
+  }
+
+
+}
+
+
+
 
 /// parse Point
 
+/// parse Point
 
 // parse list user

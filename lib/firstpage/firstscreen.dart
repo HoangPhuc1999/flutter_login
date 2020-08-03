@@ -4,11 +4,11 @@ import 'package:flutterlogin/firstpage/first_bloc.dart';
 import 'package:flutterlogin/route.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 class FirstScreen extends StatefulWidget {
   @override
   _FirstScreenState createState() => _FirstScreenState();
 }
+
 class _FirstScreenState extends State<FirstScreen> {
   final FirstBloc bloc = FirstBloc();
   final TextEditingController myController = TextEditingController();
@@ -70,7 +70,6 @@ class _FirstScreenState extends State<FirstScreen> {
   }
 
   Widget _buildBody(BuildContext context) {
-
     return Scaffold(
       backgroundColor: const Color(0xFF084388),
       // backgroundImage: AssetImage('images/angela.jpg'),
@@ -146,8 +145,7 @@ class _FirstScreenState extends State<FirstScreen> {
                       width: 340.0,
                       child: const Center(
                           child: Text('Đăng Nhập',
-                              style:
-                                  TextStyle(color: const Color(0xFF084388))))),
+                              style: TextStyle(color: Color(0xFF084388))))),
                   onPressed: () async {
                     print(myController.text);
                     print(myController1.text);
@@ -176,5 +174,4 @@ class _FirstScreenState extends State<FirstScreen> {
       },
     );
   }
-
 }

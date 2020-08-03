@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutterlogin/route.dart';
 import 'package:flutterlogin/splashscreen.dart';
+import 'notification/notification_screen.dart';
 import 'second/secondscreen.dart';
 import 'firstpage/firstscreen.dart';
 
@@ -37,6 +38,11 @@ MaterialPageRoute<dynamic> routeSetting(RouteSettings settings) {
           firstpagetext1: data['text1'] as String,
         ),
         settings: const RouteSettings(name: RoutesName.secondpage),
+      );
+    case RoutesName.notificationpage:
+      return MaterialPageRoute<dynamic>(
+        builder: (BuildContext buildercontext) => NotificationPage(),
+        settings: const RouteSettings(name: RoutesName.notificationpage),
       );
     default:
       return MaterialPageRoute<dynamic>(

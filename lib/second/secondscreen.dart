@@ -16,7 +16,6 @@ class SecondScreen extends StatefulWidget {
 
 class _SecondScreenState extends State<SecondScreen> {
   final SecondBloc bloc = SecondBloc();
-  final GlobalKey _mydrawer = new GlobalKey();
 
   @override
   void dispose() {
@@ -61,18 +60,25 @@ class _SecondScreenState extends State<SecondScreen> {
       appBar: AppBar(
         leading: Builder(
           builder: (context) => IconButton(
-            icon: new Icon(Icons.account_circle,size: 30.0,),
+            icon: Icon(
+              Icons.account_circle,
+              size: 30.0,
+            ),
             onPressed: () => Scaffold.of(context).openDrawer(),
           ),
         ),
-        title: Center(child: Text('Danh Sách Chuyến Đi')),
+        title: const Center(child: Text('Danh Sách Chuyến Đi')),
         automaticallyImplyLeading: false,
         backgroundColor: const Color(0xFF084388),
         actions: <Widget>[
           Padding(
-              padding: EdgeInsets.only(right: 20.0),
+              padding: const EdgeInsets.only(right: 20.0),
               child: GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  Navigator.pushNamed(
+                  context,
+                  RoutesName.notificationpage);
+                  },
                 child: Icon(
                   Icons.notifications,
                   size: 30.0,
@@ -98,14 +104,6 @@ class _SecondScreenState extends State<SecondScreen> {
                       //Text(widget.firstpagetext),
                       Text(widget.firstpagetext1),
                 ),
-                Center(
-                  child: RaisedButton(
-                    child: const Text('Log out'),
-                    onPressed: () {
-                      bloc.add(ClickLogOutEventSecondEvent());
-                    },
-                  ),
-                ),
               ]),
         ),
       ),
@@ -122,35 +120,24 @@ class _SecondScreenState extends State<SecondScreen> {
               'Side menu',
               style: TextStyle(color: Colors.white, fontSize: 25),
             ),
-            decoration: BoxDecoration(
-                color: Colors.green,
-                image: DecorationImage(
-                    fit: BoxFit.fill, image: AssetImage('images/Anvui.png'))),
+            decoration: const BoxDecoration(
+              color: Color(0xFF084388),
+            ),
           ),
           ListTile(
-            leading: Icon(Icons.input),
-            title: Text('Welcome'),
+            leading: Icon(Icons.account_circle),
+            title: const Text('Thông tin cá nhân'),
             onTap: () => {Navigator.of(context).pop()},
           ),
           ListTile(
-            leading: Icon(Icons.verified_user),
-            title: Text('Profile'),
-            onTap: () => {Navigator.of(context).pop()},
-          ),
-          ListTile(
-            leading: Icon(Icons.settings),
-            title: Text('Settings'),
-            onTap: () => {Navigator.of(context).pop()},
-          ),
-          ListTile(
-            leading: Icon(Icons.border_color),
-            title: Text('Feedback'),
+            leading: Icon(Icons.library_books),
+            title: const Text('Hướng dẫn'),
             onTap: () => {Navigator.of(context).pop()},
           ),
           ListTile(
             leading: Icon(Icons.exit_to_app),
-            title: Text('Logout'),
-            onTap: () => {Navigator.of(context).pop()},
+            title: const Text('Đăng xuất'),
+            onTap: () => {bloc.add(ClickLogOutEventSecondEvent())},
           ),
         ],
       ),

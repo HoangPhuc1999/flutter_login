@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'package:flutterlogin/firstpage/firstscreen.dart';
 import 'package:flutterlogin/route.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -13,7 +12,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Timer(
-        Duration(seconds: 1),
+        const Duration(seconds: 1),
         () =>  Navigator.pushNamed(
           context,
           RoutesName.firstpage,
