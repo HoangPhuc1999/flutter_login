@@ -26,7 +26,7 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
     }
     else if (event is GetMoreDataNotificationEvent) {
       await notificationRepository.getNotification(event.page+1,5);
-      yield ReceivedDataNotificationState(event.page,myNotilist);
+      yield ReceivedDataNotificationState(event.page+1,myNotilist);
     }
   }
 }
