@@ -15,6 +15,8 @@ class URL {
   static const String baseURL = 'https://ticket-new-dot-dobody-anvui.appspot.com/';
   static const String login = 'user/rlogin';
   static const String getnotiurl = 'notification/getList';
+  static const String readnotiurl = 'notification/read';
+
 }
 
 class ServerConnection {

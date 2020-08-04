@@ -26,4 +26,13 @@ class NotificationRepository{
     }
   }
 
+  Future<void> readNotification(String notificationId) async{
+    final Map<String, dynamic> body = <String, dynamic>{};
+    body[Constant.notificationId] = notificationId;
+    final AVResponse response =
+    await ServerConnection(URL.readnotiurl, body).postData();
+
+  }
+
+
 }

@@ -1,24 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutterlogin/example.dart';
 import 'package:flutterlogin/route.dart';
 import 'package:flutterlogin/splashscreen.dart';
 import 'notification/notification_screen.dart';
 import 'second/secondscreen.dart';
 import 'firstpage/firstscreen.dart';
 
-
-  void main()  {
+void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
-  runApp(MaterialApp (
-     home: SplashScreen(),
-     title: 'Named Routes Demo',
-     initialRoute: RoutesName.splashscreen,
-     onGenerateRoute:(RouteSettings settings)=> routeSetting(settings),
+  runApp(MaterialApp(
+    localizationsDelegates: [
+      GlobalMaterialLocalizations.delegate,
+      GlobalWidgetsLocalizations.delegate,
+      GlobalCupertinoLocalizations.delegate,
+    ],
+    supportedLocales: const [
+       Locale('vi', 'VN'), // Vietnam
+       Locale('en', 'US'), // English
+    ],
+    home: SplashScreen(),
+    title: 'Named Routes Demo',
+    initialRoute: RoutesName.splashscreen,
+    onGenerateRoute: (RouteSettings settings) => routeSetting(settings),
+  //home: MyExample(),
+
   ));
 }
 
 MaterialPageRoute<dynamic> routeSetting(RouteSettings settings) {
-   final dynamic data = settings.arguments;
+  final dynamic data = settings.arguments;
   switch (settings.name) {
     case RoutesName.firstpage:
       return MaterialPageRoute<dynamic>(

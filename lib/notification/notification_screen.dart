@@ -1,4 +1,3 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterlogin/entity.dart';
@@ -23,10 +22,10 @@ class _NotificationPageState extends State<NotificationPage> {
     return BlocBuilder<NotificationBloc, NotificationState>(
         cubit: bloc,
         builder: (BuildContext context, NotificationState state) {
+          print(state);
           if (state is ReceivedDataNotificationState) {
             return _buildBody(context, state);
-          } else if (state is FailToReceiveDate) {
-          }
+          } else if (state is FailToReceiveDate) {}
 
           return Container();
         });
@@ -52,38 +51,47 @@ class _NotificationPageState extends State<NotificationPage> {
         ],
       ),
       body: Column(children: <Widget>[
-        Container(
-          height: 540.0,
-          padding: const EdgeInsets.only(right: 20.0),
-          child: Expanded(
-            child: ListView.separated(
-              itemCount: state.myNotilist.length,
-              itemBuilder: (BuildContext context, int index) {
-                final NotiObject notiObject = state.myNotilist[index];
-                return myListofNoti(notiObject);
-              },
-              separatorBuilder: (BuildContext context, int index) =>
-                  const Divider(),
-            ),
+        Expanded(
+          child: ListView.separated(
+            itemCount: state.myNotilist.length,
+            itemBuilder: (BuildContext context, int index) {
+              //print( convertTime('MM-dd-yyyy', state.myNotilist[index].createdDate, false));
+              final NotiObject notiObject = state.myNotilist[index];
+              return myListofNoti(notiObject, state);
+              //return myListofNoti(notiObject);
+            },
+            separatorBuilder: (BuildContext context, int index) =>
+                const Divider(),
           ),
         ),
-        RichText(
-          text: TextSpan(
-              style: TextStyle(fontWeight: FontWeight.bold,color:const Color(0xFF084388)),
-              text: "Xem thêm",
-              recognizer: TapGestureRecognizer()
-                ..onTap = () {
-                  bloc.add(GetMoreDataNotificationEvent(state.page));
-                  print('Privacy Policy"');
-                }),
+        GestureDetector(
+          onTap: () {
+            bloc.add(
+                GetMoreDataNotificationEvent(state.page, state.myNotilist));
+          },
+          child: Text(
+            'Xem them',
+            style: TextStyle(
+                fontWeight: FontWeight.bold, color: const Color(0xFF084388)),
+          ),
         ),
       ]),
     );
   }
 
-  Widget myListofNoti(NotiObject notiObject) {
-    return ListTile(
-      title: Text(notiObject.notificationContent),
+  Widget myListofNoti(
+      NotiObject notiObject, ReceivedDataNotificationState state) {
+    return GestureDetector(
+      onTap: () {
+        bloc.add(ReadNotiNotificationEvent(
+            notiObject.notificationId, state.myNotilist, state.page));
+      },
+      child: Material(
+        color: notiObject.isRead ? Colors.blue : Colors.white,
+        child: ListTile(
+          title: Container(child: Text(notiObject.notificationContent)),
+        ),
+      ),
     );
   }
 }

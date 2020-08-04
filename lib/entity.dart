@@ -121,13 +121,13 @@ List<String> getListString(String key, Map<String, dynamic> data) {
 @JsonSerializable(nullable: false)
 class NotiObject {
   NotiObject({
-    this.notificationId,
-    this.notificationContent,
-    this.userId,
-    this.notificationCode,
-    this.createdDate,
-    this.objectId,
-    this.isRead,
+  final this.notificationId,
+  final this.notificationContent,
+  final this.userId,
+  final this.notificationCode,
+  final this.createdDate,
+  final this.objectId,
+  final this.isRead,
    });
 
   factory NotiObject.fromMap(final Map<String,dynamic> data){
@@ -144,13 +144,6 @@ class NotiObject {
       isRead: getBool(Constant.isRead, data),
     );
   }
-  final String notificationId;
-  final String notificationContent;
-  final String userId;
-  final int notificationCode;
-  final int createdDate;
-  final String objectId;
-  final bool isRead;
 
   NotiObject copyWith({
     String notificationId,
@@ -184,6 +177,14 @@ class NotiObject {
       isRead: isRead ?? this.isRead,
     );
   }
+
+  final String notificationId;
+  final String notificationContent;
+  final String userId;
+  final int notificationCode;
+  final int createdDate;
+  final String objectId;
+  final bool isRead;
 
   Map<String,dynamic> toJson (){
     return<String,dynamic> {
