@@ -53,7 +53,7 @@ class _FirstScreenState extends State<FirstScreen> {
             addStringToSF('1', myController.text);
             addStringToSF('2', myController1.text);
             print('hello');
-            openNextPage(context);
+           // openNextPage(context);
             return false;
           } else if (state is LoginFailFirstState) {
             _fail(state.errorMessage);

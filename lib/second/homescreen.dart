@@ -1,21 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutterlogin/Trip/Trippage.dart';
+import 'package:flutterlogin/Trip/trip_bloc.dart';
+import 'package:flutterlogin/entity.dart';
 import 'package:flutterlogin/second/second_bloc.dart';
 import '../route.dart';
+import 'package:flutterlogin/calendar/calendar_item.dart';
 
-class SecondScreen extends StatefulWidget {
-  const SecondScreen(
+import '../trip_repository.dart';
+
+class HomeScreen extends StatefulWidget {
+  const HomeScreen(
       {Key key, @required this.firstpagetext, @required this.firstpagetext1})
       : super(key: key);
   final String firstpagetext;
   final String firstpagetext1;
 
   @override
-  _SecondScreenState createState() => _SecondScreenState();
+  _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _SecondScreenState extends State<SecondScreen> {
+class _HomeScreenState extends State<HomeScreen> {
   final SecondBloc bloc = SecondBloc();
+  final TripBloc tripBloc = TripBloc();
+
+  TripRepository tripRepository = TripRepository();
 
   @override
   void dispose() {
@@ -52,8 +61,9 @@ class _SecondScreenState extends State<SecondScreen> {
         });
   }
 
-  Widget _buildBody(BuildContext context, SecondInitial state) {
+  Widget _buildBody(BuildContext context, SecondState state) {
     return Scaffold(
+      backgroundColor: const Color(0xFFECF0F1),
       drawer: Container(
         child: _myDrawer(context),
       ),
@@ -75,10 +85,8 @@ class _SecondScreenState extends State<SecondScreen> {
               padding: const EdgeInsets.only(right: 20.0),
               child: GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(
-                  context,
-                  RoutesName.notificationpage);
-                  },
+                  Navigator.pushNamed(context, RoutesName.notificationpage);
+                },
                 child: Icon(
                   Icons.notifications,
                   size: 30.0,
@@ -86,27 +94,17 @@ class _SecondScreenState extends State<SecondScreen> {
               )),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(24.0),
-        child: Center(
-          child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Center(
-                  child:
-                      //Text(widget.firstpagetext),
-                      Text(widget.firstpagetext),
-                ),
-                Center(
-                  child:
-                      //Text(widget.firstpagetext),
-                      Text(widget.firstpagetext1),
-                ),
-              ]),
+      body: Column(children: <Widget>[
+        Calender(
+          onDateTimeChange: (DateTime myDate) {
+            tripBloc.add(GetDataTripEvent());
+          },
         ),
-      ),
+        BlocProvider<TripBloc>(
+          create: (BuildContext context) => tripBloc,
+          child: TripPage(),
+        ),
+      ]),
     );
   }
 
@@ -115,12 +113,12 @@ class _SecondScreenState extends State<SecondScreen> {
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-          DrawerHeader(
+          const DrawerHeader(
             child: Text(
               'Side menu',
               style: TextStyle(color: Colors.white, fontSize: 25),
             ),
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               color: Color(0xFF084388),
             ),
           ),

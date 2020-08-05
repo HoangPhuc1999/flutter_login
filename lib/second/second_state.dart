@@ -8,3 +8,7 @@ class SecondInitial extends SecondState {
 
 class MoveBackToFirstScreenSecondState extends SecondState{}
 
+//class GetTripListSecondState extends SecondState{
+//  GetTripListSecondState(this.triplist);
+//  final List<TripObject> triplist;
+//}

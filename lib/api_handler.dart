@@ -16,6 +16,7 @@ class URL {
   static const String login = 'user/rlogin';
   static const String getnotiurl = 'notification/getList';
   static const String readnotiurl = 'notification/read';
+  static const String Routeinfourl = 'trip/getListForAssistantDriver';
 
 }
 

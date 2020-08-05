@@ -1,7 +1,6 @@
 import 'package:flutterlogin/constant.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-
 String getString(String key, Map<String, dynamic> data) {
   String result = '';
   if (data == null) {
@@ -121,17 +120,17 @@ List<String> getListString(String key, Map<String, dynamic> data) {
 @JsonSerializable(nullable: false)
 class NotiObject {
   NotiObject({
-  final this.notificationId,
-  final this.notificationContent,
-  final this.userId,
-  final this.notificationCode,
-  final this.createdDate,
-  final this.objectId,
-  final this.isRead,
-   });
+    final this.notificationId,
+    final this.notificationContent,
+    final this.userId,
+    final this.notificationCode,
+    final this.createdDate,
+    final this.objectId,
+    final this.isRead,
+  });
 
-  factory NotiObject.fromMap(final Map<String,dynamic> data){
-    if(data == null) {
+  factory NotiObject.fromMap(final Map<String, dynamic> data) {
+    if (data == null) {
       return NotiObject();
     }
     return NotiObject(
@@ -167,7 +166,7 @@ class NotiObject {
       return this;
     }
 
-    return  NotiObject(
+    return NotiObject(
       notificationId: notificationId ?? this.notificationId,
       notificationContent: notificationContent ?? this.notificationContent,
       userId: userId ?? this.userId,
@@ -186,26 +185,79 @@ class NotiObject {
   final String objectId;
   final bool isRead;
 
-  Map<String,dynamic> toJson (){
-    return<String,dynamic> {
-      Constant.notificationId : notificationId,
-      Constant.notificationContent : notificationContent,
-      Constant.userId : userId,
+  Map<String, dynamic> toJson() {
+    return <String, dynamic>{
+      Constant.notificationId: notificationId,
+      Constant.notificationContent: notificationContent,
+      Constant.userId: userId,
       Constant.notificationCode: notificationCode,
-      Constant.createdDate : createdDate,
-      Constant.objectId : objectId,
+      Constant.createdDate: createdDate,
+      Constant.objectId: objectId,
       Constant.isRead: isRead,
     };
   }
+}
 
+@JsonSerializable(nullable: false)
+class TripObject {
+  TripObject({this.tripId, this.routeInfo, this.vehicle});
+
+  factory TripObject.fromMap(final Map<String, dynamic> data) {
+    if (data == null) {
+      return TripObject();
+    }
+    return TripObject(
+      tripId: getString(Constant.tripId, data),
+      vehicle:
+          VehicleObject.fromMap(data[Constant.vehicle] as Map<String, dynamic>),
+      routeInfo:
+          RouteObject.fromMap(data[Constant.routeInfo] as Map<String, dynamic>),
+    );
+  }
+
+  final String tripId;
+  final RouteObject routeInfo;
+  final VehicleObject vehicle;
 
 }
 
+@JsonSerializable(nullable: false)
+class RouteObject {
+  RouteObject({this.displayPrice, this.nameShort, this.name});
 
+  factory RouteObject.fromMap(final Map<String, dynamic> data) {
+    if (data == null) {
+      return RouteObject();
+    }
+    return RouteObject(
+        name: getString(Constant.name, data),
+        nameShort: getString(Constant.nameShort, data),
+        displayPrice: getDouble(Constant.displayPrice, data));
+  }
 
+  final String name;
+  final String nameShort;
+  final double displayPrice;
+}
 
-/// parse Point
+@JsonSerializable(nullable: false)
+class VehicleObject {
+  VehicleObject({this.name, this.numberPlate, this.id});
 
-/// parse Point
+  factory VehicleObject.fromMap(final Map<String, dynamic> data) {
+    if (data == null) {
+      return VehicleObject();
+    }
+    return VehicleObject(
+      numberPlate: getString(Constant.numberPlate, data),
+      id: getString(Constant.id, data),
+      name: getString(Constant.name, data),
+    );
+  }
+
+  final String numberPlate;
+  final String id;
+  final String name;
+}
 
 // parse list user

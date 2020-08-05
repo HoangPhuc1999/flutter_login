@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutterlogin/constant.dart';
 import 'package:flutterlogin/example.dart';
 import 'package:flutterlogin/route.dart';
 import 'package:flutterlogin/splashscreen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'notification/notification_screen.dart';
-import 'second/secondscreen.dart';
-import 'firstpage/firstscreen.dart';
+import 'second/homescreen.dart';
+import 'firstpage/loginpage.dart';
 
-void main() {
+void main()async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  print(prefs.getString(Constant.userInfo));
   runApp(MaterialApp(
     localizationsDelegates: [
       GlobalMaterialLocalizations.delegate,
@@ -45,7 +48,7 @@ MaterialPageRoute<dynamic> routeSetting(RouteSettings settings) {
     case RoutesName.secondpage:
       return MaterialPageRoute<dynamic>(
         // ignore: non_constant_identifier_names
-        builder: (BuildContext buildercontext) => SecondScreen(
+        builder: (BuildContext buildercontext) => HomeScreen(
           firstpagetext: data['text'] as String,
           firstpagetext1: data['text1'] as String,
         ),

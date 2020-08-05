@@ -5,3 +5,4 @@ abstract class SecondEvent {}
 
 class ClickLogOutEventSecondEvent extends SecondEvent{}
 class GetDataSecondEvent extends SecondEvent{}
+

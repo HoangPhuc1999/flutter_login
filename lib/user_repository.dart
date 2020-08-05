@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'package:flutterlogin/api_handler.dart';
 import 'package:flutterlogin/constant.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'entity.dart';
+
 
 class UserRepository {
 
@@ -19,27 +19,14 @@ class UserRepository {
       final Map<String, dynamic> jsonResult = response.response;
       prefs.setString(Constant.userInfo, jsonEncode(user));
       prefs.setString(
-          Constant.refreshKey,
-          getString(Constant.refreshKey,
-              response.response[Constant.token] as Map<String, dynamic>));
+          Constant.refreshKey, getString(Constant.refreshKey, response.response[Constant.token] as Map<String, dynamic>));
       prefs.setString(
-          Constant.userId,
-          getString(Constant.id,
-              response.response[Constant.userInfo] as Map<String, dynamic>));
+          Constant.userId, getString(Constant.id, response.response[Constant.userInfo] as Map<String, dynamic>));
       prefs.setString(
-          Constant.fullName,
-          getString(Constant.id,
-              response.response[Constant.fullName] as Map<String, dynamic>));
+          Constant.token, getString(Constant.tokenKey, response.response[Constant.token] as Map<String, dynamic>));
+      prefs.setString(Constant.company, json.encode(jsonResult[Constant.company]));
       prefs.setString(
-          Constant.token,
-          getString(Constant.tokenKey,
-              response.response[Constant.token] as Map<String, dynamic>));
-      prefs.setString(
-          Constant.company, json.encode(jsonResult[Constant.company]));
-      prefs.setString(
-          Constant.companyId,
-          getString(Constant.companyId,
-              jsonResult[Constant.company] as Map<String, dynamic>));
+          Constant.companyId, getString(Constant.companyId, jsonResult[Constant.company] as Map<String, dynamic>));
       return;
     } else {
       throw APIException(response);
