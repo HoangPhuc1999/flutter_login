@@ -4,6 +4,8 @@ import 'package:flutterlogin/Trip/Trippage.dart';
 import 'package:flutterlogin/Trip/trip_bloc.dart';
 import 'package:flutterlogin/entity.dart';
 import 'package:flutterlogin/second/second_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutterlogin/constant.dart';
 import '../route.dart';
 import 'package:flutterlogin/calendar/calendar_item.dart';
 
@@ -23,6 +25,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final SecondBloc bloc = SecondBloc();
   final TripBloc tripBloc = TripBloc();
+  String fullname = 'Tên';
 
   TripRepository tripRepository = TripRepository();
 
@@ -35,6 +38,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
+    getFullName();
+    print('đay nhé'+fullname);
     bloc.add(GetDataSecondEvent());
     super.initState();
   }
@@ -114,10 +119,7 @@ class _HomeScreenState extends State<HomeScreen> {
         padding: EdgeInsets.zero,
         children: <Widget>[
           const DrawerHeader(
-            child: Text(
-              'Side menu',
-              style: TextStyle(color: Colors.white, fontSize: 25),
-            ),
+            child: Text("tên"),
             decoration: BoxDecoration(
               color: Color(0xFF084388),
             ),
@@ -140,5 +142,11 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
     );
+  }
+
+  Future<String> getFullName() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.getString(Constant.fullName);
+      fullname = prefs.getString(Constant.fullName);
   }
 }

@@ -24,6 +24,8 @@ class UserRepository {
           Constant.userId, getString(Constant.id, response.response[Constant.userInfo] as Map<String, dynamic>));
       prefs.setString(
           Constant.token, getString(Constant.tokenKey, response.response[Constant.token] as Map<String, dynamic>));
+      prefs.setString(
+          Constant.fullName, getString(Constant.fullName, response.response[Constant.userInfo] as Map<String, dynamic>));
       prefs.setString(Constant.company, json.encode(jsonResult[Constant.company]));
       prefs.setString(
           Constant.companyId, getString(Constant.companyId, jsonResult[Constant.company] as Map<String, dynamic>));

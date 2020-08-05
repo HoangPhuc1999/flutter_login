@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutterlogin/constant.dart';
-import 'package:flutterlogin/example.dart';
 import 'package:flutterlogin/route.dart';
 import 'package:flutterlogin/splashscreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,7 +11,9 @@ import 'firstpage/loginpage.dart';
 void main()async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  print(prefs.getString(Constant.userInfo));
+  print(prefs.getString(Constant.fullName));
+
+
   runApp(MaterialApp(
     localizationsDelegates: [
       GlobalMaterialLocalizations.delegate,
@@ -27,7 +28,7 @@ void main()async {
     title: 'Named Routes Demo',
     initialRoute: RoutesName.splashscreen,
     onGenerateRoute: (RouteSettings settings) => routeSetting(settings),
-  //home: MyExample(),
+
 
   ));
 }

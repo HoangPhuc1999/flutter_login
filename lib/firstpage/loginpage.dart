@@ -4,6 +4,8 @@ import 'package:flutterlogin/firstpage/first_bloc.dart';
 import 'package:flutterlogin/route.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../constant.dart';
+
 class FirstScreen extends StatefulWidget {
   @override
   _FirstScreenState createState() => _FirstScreenState();
@@ -44,6 +46,8 @@ class _FirstScreenState extends State<FirstScreen> {
     return prefs;
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<FirstBloc, FirstState>(
@@ -53,7 +57,7 @@ class _FirstScreenState extends State<FirstScreen> {
             addStringToSF('1', myController.text);
             addStringToSF('2', myController1.text);
             print('hello');
-           // openNextPage(context);
+            openNextPage(context);
             return false;
           } else if (state is LoginFailFirstState) {
             _fail(state.errorMessage);

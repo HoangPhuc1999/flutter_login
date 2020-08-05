@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:flutterlogin/entity.dart';
 import 'package:meta/meta.dart';
 
 import '../trip_repository.dart';
