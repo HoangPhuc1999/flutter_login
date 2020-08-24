@@ -10,8 +10,8 @@ part 'calendar_event.dart';
 part 'calendar_state.dart';
 
 class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
-  CalendarBloc() : super(ShowChosenDateCalendarState(DateTime.now()));
-  DateTime thisdate;
+  CalendarBloc() : super(ShowChosenDateCalendarState(DateTime.now(),true));
+  DateTime thisdate = DateTime.now();
   TripRepository tripRepository = TripRepository();
   @override
   Stream<CalendarState> mapEventToState(
@@ -20,13 +20,16 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
 
     if (event is NextDayCalendarEvent) {
       thisdate = event.date.add(const Duration(days: 1));
-      yield ShowChosenDateCalendarState(thisdate);
+      yield ShowChosenDateCalendarState(thisdate,true);
     } else if (event is PreviousDayCalendarEvent) {
       thisdate = event.date.add(const Duration(days: -1));
-      yield ShowChosenDateCalendarState(thisdate);
+      yield ShowChosenDateCalendarState(thisdate,true);
     } else if( event is ShowMonthCalendarEvent){
       thisdate = event.date;
-      yield ShowChosenDateCalendarState(thisdate);
+      yield ShowChosenDateCalendarState(thisdate,true);
+    }
+    else if (event is DisableMoveIconCalendarEvent){
+      yield ShowChosenDateCalendarState(thisdate,event.buttonReady);
     }
   }
 

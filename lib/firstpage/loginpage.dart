@@ -26,13 +26,15 @@ class _FirstScreenState extends State<FirstScreen> {
     super.dispose();
   }
 
-  void openNextPage(BuildContext context) {
+  Future<void>openNextPage(BuildContext context) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     Navigator.pushNamed(
       context,
       RoutesName.secondpage,
       arguments: <String, dynamic>{
         'text': myController.text,
         'text1': myController1.text,
+        'fullname':prefs.getString(Constant.fullName),
       },
     ).then((value) {
       myController.clear();
@@ -45,8 +47,6 @@ class _FirstScreenState extends State<FirstScreen> {
     prefs.setString(key, text);
     return prefs;
   }
-
-
 
   @override
   Widget build(BuildContext context) {

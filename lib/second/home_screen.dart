@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterlogin/Trip/Trippage.dart';
 import 'package:flutterlogin/Trip/trip_bloc.dart';
-import 'package:flutterlogin/entity.dart';
+import 'package:flutterlogin/calendar/calendar_bloc.dart';
 import 'package:flutterlogin/second/second_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutterlogin/constant.dart';
@@ -13,10 +13,14 @@ import '../trip_repository.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen(
-      {Key key, @required this.firstpagetext, @required this.firstpagetext1})
+      {Key key,
+      @required this.firstpagetext,
+      @required this.firstpagetext1,
+      this.fullname})
       : super(key: key);
   final String firstpagetext;
   final String firstpagetext1;
+  final String fullname;
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -25,7 +29,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final SecondBloc bloc = SecondBloc();
   final TripBloc tripBloc = TripBloc();
-  String fullname = 'Tên';
+  final CalendarBloc calBloc = CalendarBloc();
+  String name = ' ';
 
   TripRepository tripRepository = TripRepository();
 
@@ -38,8 +43,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    getFullName();
-    print('đay nhé'+fullname);
     bloc.add(GetDataSecondEvent());
     super.initState();
   }
@@ -68,14 +71,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _buildBody(BuildContext context, SecondState state) {
     return Scaffold(
-      backgroundColor: const Color(0xFFECF0F1),
+
       drawer: Container(
         child: _myDrawer(context),
       ),
       appBar: AppBar(
         leading: Builder(
           builder: (context) => IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.account_circle,
               size: 30.0,
             ),
@@ -92,7 +95,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 onTap: () {
                   Navigator.pushNamed(context, RoutesName.notificationpage);
                 },
-                child: Icon(
+                child: const Icon(
                   Icons.notifications,
                   size: 30.0,
                 ),
@@ -100,15 +103,30 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       body: Column(children: <Widget>[
-        Calender(
-          onDateTimeChange: (DateTime myDate) {
-            tripBloc.add(GetDataTripEvent());
-          },
+
+        BlocProvider<CalendarBloc>(
+          create: (BuildContext context) => calBloc,
+          child: Calender(
+            onDateTimeChange: (DateTime myDate) {
+              tripBloc.add(GetDataTripEvent(myDate));
+            },
+          ),
         ),
+
         BlocProvider<TripBloc>(
           create: (BuildContext context) => tripBloc,
-          child: TripPage(),
+          child: TripPage(
+            onFinishChange: () {
+              calBloc.add(DisableMoveIconCalendarEvent(true));
+            },
+            onStartChange: (){
+              calBloc.add(DisableMoveIconCalendarEvent(false));
+            },
+
+          ),
         ),
+
+
       ]),
     );
   }
@@ -118,9 +136,9 @@ class _HomeScreenState extends State<HomeScreen> {
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-          const DrawerHeader(
-            child: Text("tên"),
-            decoration: BoxDecoration(
+          DrawerHeader(
+            child: Text(widget.fullname),
+            decoration: const BoxDecoration(
               color: Color(0xFF084388),
             ),
           ),
@@ -142,11 +160,5 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
     );
-  }
-
-  Future<String> getFullName() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.getString(Constant.fullName);
-      fullname = prefs.getString(Constant.fullName);
   }
 }

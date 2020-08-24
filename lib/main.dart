@@ -3,9 +3,10 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutterlogin/constant.dart';
 import 'package:flutterlogin/route.dart';
 import 'package:flutterlogin/splashscreen.dart';
+import 'package:flutterlogin/style.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'notification/notification_screen.dart';
-import 'second/homescreen.dart';
+import 'second/home_screen.dart';
 import 'firstpage/loginpage.dart';
 
 void main()async {
@@ -15,6 +16,7 @@ void main()async {
 
 
   runApp(MaterialApp(
+    theme: themeData,
     localizationsDelegates: [
       GlobalMaterialLocalizations.delegate,
       GlobalWidgetsLocalizations.delegate,
@@ -52,6 +54,7 @@ MaterialPageRoute<dynamic> routeSetting(RouteSettings settings) {
         builder: (BuildContext buildercontext) => HomeScreen(
           firstpagetext: data['text'] as String,
           firstpagetext1: data['text1'] as String,
+          fullname: data['fullname'] as String,
         ),
         settings: const RouteSettings(name: RoutesName.secondpage),
       );

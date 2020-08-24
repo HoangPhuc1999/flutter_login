@@ -12,7 +12,6 @@ class NotificationRepository{
     body[Constant.count] = count;
     final List<NotiObject> notilist =  <NotiObject>[];
 
-
     final AVResponse response =
     await ServerConnection(URL.getnotiurl, body).postData();
     if (response.ok) {

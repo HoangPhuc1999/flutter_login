@@ -17,7 +17,6 @@ class UserRepository {
         await ServerConnection(URL.login, map).postData();
     if (response.ok) {
       final Map<String, dynamic> jsonResult = response.response;
-      prefs.setString(Constant.userInfo, jsonEncode(user));
       prefs.setString(
           Constant.refreshKey, getString(Constant.refreshKey, response.response[Constant.token] as Map<String, dynamic>));
       prefs.setString(

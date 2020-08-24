@@ -4,11 +4,10 @@ part of 'calendar_bloc.dart';
 abstract class CalendarState {}
 
 class ShowChosenDateCalendarState extends CalendarState{
-  ShowChosenDateCalendarState(this.date);
+  ShowChosenDateCalendarState(this.date, this.check);
   final DateTime date;
+  final bool check;
 }
 
-class ChooseDateCalendarState extends CalendarState{
-  ChooseDateCalendarState(this.date);
-  final DateTime date;
-}
+
+

@@ -17,3 +17,8 @@ class ShowMonthCalendarEvent extends CalendarEvent{
   ShowMonthCalendarEvent(this.date);
   final DateTime date;
 }
+
+class DisableMoveIconCalendarEvent extends CalendarEvent{
+  DisableMoveIconCalendarEvent(this.buttonReady);
+  final bool buttonReady;
+}

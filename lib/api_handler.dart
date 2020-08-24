@@ -30,7 +30,7 @@ class ServerConnection {
   /// Lấy dữ liệu từ server theo methods GET
   Future<AVResponse> getData() async {
 
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String _url = URL.baseURL + url;
     final Map<String, String> headers = <String, String>{};
     headers[Constant.contentType] = 'application/json';
